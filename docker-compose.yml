@@ -1,0 +1,58 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: huellas
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d huellas"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  pets-api:
+    build:
+      context: .
+      dockerfile: services/pets/Dockerfile
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://postgres:postgres@db:5432/huellas}
+      FRONTEND_ORIGINS: ${FRONTEND_ORIGINS:-http://localhost:8080}
+    ports:
+      - "8001:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  adoptions-api:
+    build:
+      context: .
+      dockerfile: services/adoptions/Dockerfile
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://postgres:postgres@db:5432/huellas}
+      PETS_API_URL: http://pets-api:8000
+      FRONTEND_ORIGINS: ${FRONTEND_ORIGINS:-http://localhost:8080}
+    ports:
+      - "8002:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      pets-api:
+        condition: service_started
+
+  frontend:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - pets-api
+      - adoptions-api
+
+volumes:
+  postgres_data:

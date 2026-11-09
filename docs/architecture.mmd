@@ -1,0 +1,13 @@
+flowchart LR
+    Browser[Frontend web<br/>HTML, CSS, JavaScript] -->|HTTP/JSON| Pets[API Mascotas<br/>FastAPI]
+    Browser -->|HTTP/JSON| Adoptions[API Adopciones<br/>FastAPI]
+    Adoptions -->|REST: consultar, reservar,<br/>confirmar o compensar| Pets
+    Pets -->|escritura/lectura<br/>tabla pets| DB[(PostgreSQL / Supabase)]
+    Adoptions -->|escritura/lectura<br/>tabla adoptions| DB
+
+    subgraph PetsOwnership[Responsabilidad Mascotas]
+      Pets --> PetTable[(pets)]
+    end
+    subgraph AdoptionOwnership[Responsabilidad Adopciones]
+      Adoptions --> AdoptionTable[(adoptions)]
+    end

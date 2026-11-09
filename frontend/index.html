@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#176b58">
+    <title>Huellas de Esperanza | Adopción responsable</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="nav wrap" aria-label="Navegación principal">
+        <a class="brand" href="#">Huellas<span>de Esperanza</span></a>
+        <a class="nav-link" href="#solicitudes">Gestionar solicitudes</a>
+      </nav>
+      <div class="hero-content wrap">
+        <p class="eyebrow">Un hogar cambia una vida</p>
+        <h1>Encuentra a tu nuevo<br>mejor amigo.</h1>
+        <p>Conoce a quienes esperan una familia y ayúdanos a encontrarles un hogar responsable.</p>
+        <a class="button button-light" href="#mascotas">Ver mascotas</a>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section id="mascotas" class="section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Adopta con el corazón</p>
+            <h2>Mascotas disponibles</h2>
+          </div>
+          <button id="refreshPets" class="button button-outline" type="button">Actualizar</button>
+        </div>
+        <p id="petsMessage" class="message" role="status"></p>
+        <div id="petList" class="pet-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="section admin-grid">
+        <div class="panel">
+          <p class="eyebrow">Fundación</p>
+          <h2>Registrar mascota</h2>
+          <form id="petForm" class="form">
+            <label>Nombre<input name="name" required maxlength="100"></label>
+            <div class="form-row">
+              <label>Especie
+                <select name="species" required>
+                  <option>Perro</option><option>Gato</option><option>Otro</option>
+                </select>
+              </label>
+              <label>Edad (años)<input name="age" type="number" min="0" max="50" required></label>
+            </div>
+            <label>Raza<input name="breed" value="Mestizo" required maxlength="100"></label>
+            <label>Foto (URL, opcional)<input name="photo_url" type="url"></label>
+            <label>Descripción<textarea name="description" rows="3" required maxlength="2000"></textarea></label>
+            <button class="button" type="submit">Guardar mascota</button>
+            <p class="form-message" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <div id="solicitudes" class="panel">
+          <div class="section-heading compact">
+            <div><p class="eyebrow">Seguimiento</p><h2>Solicitudes</h2></div>
+            <button id="refreshAdoptions" class="button button-outline" type="button">Actualizar</button>
+          </div>
+          <p id="adoptionsMessage" class="message" role="status"></p>
+          <div id="adoptionList" class="adoption-list"></div>
+        </div>
+      </section>
+
+      <section class="section callout">
+        <div><p class="eyebrow">¿Ya encontraste a tu compañero?</p><h2>Inicia una solicitud de adopción</h2></div>
+        <form id="adoptionForm" class="form form-inline">
+          <label>Mascota
+            <select id="petSelect" name="pet_id" required><option value="">Selecciona una mascota</option></select>
+          </label>
+          <label>Tu nombre<input name="applicant_name" required minlength="2" maxlength="120"></label>
+          <label>Correo electrónico<input name="email" type="email" required maxlength="254"></label>
+          <label>Teléfono<input name="phone" type="tel" required minlength="7" maxlength="40"></label>
+          <label>¿Por qué quieres adoptar?<textarea name="motivation" rows="3" required minlength="10" maxlength="2000"></textarea></label>
+          <button class="button" type="submit">Enviar solicitud</button>
+          <p class="form-message" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer><p>Fundación Huellas de Esperanza · Adopta responsablemente</p></footer>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
+
