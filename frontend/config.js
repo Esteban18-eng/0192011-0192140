@@ -1,5 +1,5 @@
 window.HUELLAS_CONFIG = {
-  petsApiUrl: "http://localhost:8001",
-  adoptionsApiUrl: "http://localhost:8002",
+  petsApiUrl: "https://huellas-mascotas.onrender.com",
+  adoptionsApiUrl: "https://huellas-adopciones.onrender.com",
 };
 
